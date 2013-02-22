@@ -3,7 +3,6 @@
 
   console.log("Events Test");
 
-  // ---
   var Memo = Backbone.Model.extend({
     idAttribute:"_id",
     defaults:{
