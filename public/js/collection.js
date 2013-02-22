@@ -1,5 +1,4 @@
 (function () {
-
   "use strict";
 
   console.log("Model & Collection Test");
@@ -25,14 +24,14 @@
 
   console.log("Initial memoList.length: " + memoList.length);
 
-/**
-  var memo = memoList.create({content: "Acro1"}, {
+  /**
+   var memo = memoList.create({content: "Acro1"}, {
     success: function() {
       console.log("After create memoList: " + JSON.stringify(memoList));
       console.log("After create memoList.length: " + memoList.length);
     }
   });
-*/
+   */
 
   var memo = new Memo({content:"Acro2"}, {collection:memoList});
 
