@@ -1,138 +1,138 @@
-(function(){
-	
-	console.log("Model Test");
-	
-	// ---
-	var Memo = Backbone.Model.extend({
-   urlRoot: "/memo",
-		idAttribute: "_id",
-	  defaults: {
-		  "content": ""
-		}
-		,validate: function(attributes) {
-			if(attributes.content == "") {
-				return "content must be not empty."
-			}
-		}
-	});
+(function () {
+  "use strict";
 
-	var memo = new Memo();
+  console.log("Events Test");
 
-/**	
-  var observer = {
-		showArguments: function(){
-			console.log("observer.showArguments: " + JSON.stringify(arguments));
-		}
-	};
-  _.extend(observer, Backbone.Events);
+  // ---
+  var Memo = Backbone.Model.extend({
+    idAttribute:"_id",
+    defaults:{
+      "content":""
+    },
+    validate:function (attributes) {
+      if (attributes.content === "") {
+        return "content must be not empty.";
+      }
+    }
+  });
 
-  observer.listenTo(memo, "all", observer.showArguments);
-*/
+  var MemoList = Backbone.Collection.extend({
+    model:Memo,
+    url:"/memo"
+  });
 
-/**
-	console.log("Before save: " + JSON.stringify(memo));
-	console.log("isNew(): " + memo.isNew());
-
-	memo.save({content: "Acroquest"}, {
-		success: function(model, response) {
-			console.log("After save(post) model: " + JSON.stringify(model));
-			console.log("After save(post) memo: " + JSON.stringify(memo));
-			console.log("After save(post) isNew(): " + model.isNew());	
-			console.log("After save(post) memo.isNew(): " + memo.isNew());	
-		}
-	});
-
-	console.log("After save: " + JSON.stringify(memo));
-	console.log("isNew(): " + memo.isNew());
-*/
-
-	memo.fetch({
-		success: function(model, response) {
-			console.log("After fetch(get) memo: " + JSON.stringify(memo));
-			console.log("After fetch(get) response: " + JSON.stringify(response));
-			
-			memo.save({content: "Acroquest Technology"}, {
-				success: function(model, response) {
-					console.log("After save(put) memo: " + JSON.stringify(memo));
-				}
-			});
-		}
-	});
-
-/**
   var memoList = new MemoList();
 
+  var observer = {
+    showArguments:function () {
+      console.log("+++observer.showArguments: ");
+      _.each(arguments, function (item, index) {
+        console.log("  +++arguments[" + index + "]: " + JSON.stringify(item));
+      });
+    }
+  };
 
-	var memo2 = memoList.create({content: "Acro2"}, {wait: true, 
-		success: function(model, response) {
-			console.log("After save(post) model: " + JSON.stringify(model));
-			console.log("After save(post) response: " + JSON.stringify(response));
-			console.log("After save(post) isNew(): " + model.isNew());	
-		}
-	});
-	
-	memoList.fetch({
-		success: function(collection) {
-			console.log("After fetch collection: " + JSON.stringify(collection));
+  _.extend(observer, Backbone.Events);
 
-			var tmpMemo = collection.at(0);
-			console.log(JSON.stringify(tmpMemo));
-			tmpMemo.save({content: "Acroquest"},{
-				success: function(model, response) {
-					console.log("After save(put) model: " + JSON.stringify(model));
-					console.log("After save(put) response: " + JSON.stringify(response));
-				}
-			});
-			tmpMemo.fetch({
-				success: function(model, response) {
-					console.log("Model fetch(get) model: " + JSON.stringify(model));
-					console.log("Model fetch(get) response: " + JSON.stringify(response));
-				}
-			});
-			tmpMemo.destroy({
-				success: function(model, response) {
-					console.log("Model destory(delete) model: " + JSON.stringify(model));
-					console.log("Model destory(delete) response: " + JSON.stringify(response));
-					memoList.fetch({
-						success: function(collection) {
-							console.log("After destroy fetch collection: " + JSON.stringify(collection));
-						}
-					});
-				}
-			});
-		}
-	});
-*/	
-	// memoList.fetch({
-	// 	success: function(collection) {
-	// 		console.log("After fetch collection: " + JSON.stringify(collection));
-	// 
-	// 		var tmpMemo = collection.at(0);
-	// 		console.log(JSON.stringify(tmpMemo));
-	// 		tmpMemo.save({content: "Acroquest"},{
-	// 			success: function(model, response) {
-	// 				console.log("After save(put) model: " + JSON.stringify(model));
-	// 				console.log("After save(put) response: " + JSON.stringify(response));
-	// 			}
-	// 		});
-	// 		tmpMemo.fetch({
-	// 			success: function(model, response) {
-	// 				console.log("Model fetch(get) model: " + JSON.stringify(model));
-	// 				console.log("Model fetch(get) response: " + JSON.stringify(response));
-	// 			}
-	// 		});
-	// 		tmpMemo.destroy({
-	// 			success: function(model, response) {
-	// 				console.log("Model destory(delete) model: " + JSON.stringify(model));
-	// 				console.log("Model destory(delete) response: " + JSON.stringify(response));
-	// 				memoList.fetch({
-	// 					success: function(collection) {
-	// 						console.log("After destroy fetch collection: " + JSON.stringify(collection));
-	// 					}
-	// 				});
-	// 			}
-	// 		});
-	// 	}
-	// });	
+  observer.listenTo(memoList, "all", observer.showArguments);
+
+  var memo = new Memo({content:"Acroquest"});
+
+  console.log("add");
+
+  memoList.add(memo);
+
+  console.log("change");
+
+  memo.set({content:"Acroquest Technology"});
+
+  console.log("remove");
+
+  memoList.remove(memo);
+
+  console.log("reset");
+
+  memoList.add([new Memo({content:"Acro1"}), new Memo({content:"Acro2"}), new Memo({content:"Acro3"})]);
+
+  console.log("Before reset: " + JSON.stringify(memoList));
+
+  memoList.reset([new Memo({content:"Acro"}), new Memo({content:"Technology"}), new Memo({content:"Acroquest"})]);
+
+  console.log("After reset: " + JSON.stringify(memoList));
+
+  console.log("sort");
+
+  memoList.comparator = function (item) {
+    return item.get("content");
+  };
+
+  memoList.sort();
+
+  console.log("After sort: " + JSON.stringify(memoList));
+
+  observer.stopListening();
+
+  // ----
+
+  memoList = new MemoList();
+
+  observer.listenTo(memoList, "all", observer.showArguments);
+
+  console.log("request, sync");
+
+  memo = new Memo({content:"Murata"}, {collection:memoList});
+
+  console.log("create");
+  memo.save(null, {
+    success:function () {
+      console.log("After create memoList: " + JSON.stringify(memoList));
+      console.log("After create memoList.length: " + memoList.length);
+    }
+  }).pipe(function () {
+      console.log("fetch");
+      return memoList.fetch({
+        success:function () {
+          console.log("After fetch memoList: " + JSON.stringify(memoList));
+          console.log("After fetch memoList.length: " + memoList.length);
+        }
+      });
+    }).pipe(function () {
+      var tempMemo = memoList.find(function (item) {
+        return item.get("content") === "Murata";
+      });
+
+      console.log("invalid");
+      tempMemo.save({content:""});
+
+      console.log("invalid wait:true");
+      tempMemo.save({content:""}, {wait:true});
+
+      console.log("re-save");
+
+      return tempMemo.save({content:"Kenichiro"}, {
+        success:function () {
+          console.log("After save memoList: " + JSON.stringify(memoList));
+          console.log("After save memoList.length: " + memoList.length);
+        }
+      });
+    }).done(function () {
+      console.log("destroy");
+
+      var tempMemo = memoList.find(function (item) {
+        return item.get("content") === "Kenichiro";
+      });
+
+      return tempMemo.destroy({
+        success:function () {
+          console.log("After destroy memoList: " + JSON.stringify(memoList));
+          console.log("After destroy memoList.length: " + memoList.length);
+        }
+      });
+    });
+
+  memoList.add(memo);
+
+  console.log("After add memo: " + JSON.stringify(memo));
+  console.log("After add memoList.length: " + memoList.length);
 
 }());

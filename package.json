@@ -2,9 +2,14 @@
   "name": "bb-crud",
   "version": "0.0.1",
   "private": true,
+  "scripts": {
+    "start": "node server",
+    "devserver": "./node_modules/node-dev/node-dev server.js"
+  },
   "dependencies": {
     "express": "2.5.0",
     "jade": ">= 0.0.1",
-    "mongoose": "~3.5.5"
+    "mongoose": "~3.5.5",
+    "node-dev": "~0.2.10"
   }
 }
