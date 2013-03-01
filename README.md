@@ -1,4 +1,4 @@
 bb-crud
 =======
 
-RESTful CRUD Application for Backbone.Model/Collection test. 
+RESTful CRUD Application for Backbone.js Application.
