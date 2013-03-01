@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Backbone View Example</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Backbone Memo Application">
+  <meta name="author" content="Kenichiro Murata">
+
+  <link href="lib/css/bootstrap.css" rel="stylesheet">
+  <style>
+    body {
+      padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
+    }
+  </style>
+  <link href="lib/css/bootstrap-responsive.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="navbar navbar-inverse navbar-fixed-top">
+  <div class="navbar-inner">
+    <div class="container">
+      <a class="brand" href="./view.html">Backbone Memo Application</a>
+    </div>
+  </div>
+</div>
+
+<div id="main" class="container">
+
+  <h1>Memo</h1>
+
+  <form id="addForm" class="form">
+    <input type="text" name="title" class="input-block-level" placeholder="Title"/>
+    <textarea rows="5" name="content" class="input-block-level" placeholder="Content"></textarea>
+    <a href="#" id="addBtn" class="btn btn-primary">Add</a>
+  </form>
+
+  <div id="memoList" class="row-fluid">
+  </div>
+
+</div>
+
+<script type="text/template" id="tmpl-itemview">
+  <h3><%= title %></h3>
+  <p><%= content %></p>
+  <p><a href="#" class="delete">delete</a></p>
+</script>
+
+<script src="lib/js/jquery-1.9.1.js"></script>
+<script src="lib/js/json2.js"></script>
+<script src="lib/js/underscore.js"></script>
+<script src="lib/js/backbone.js"></script>
+<script src="js/view.js"></script>
+
+</body>
+</html>
