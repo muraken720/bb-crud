@@ -51,6 +51,7 @@
       __extends(EditView, _super);
 
       function EditView() {
+        this.hideView = __bind(this.hideView, this);
         this.onSave = __bind(this.onSave, this);        _ref2 = EditView.__super__.constructor.apply(this, arguments);
         return _ref2;
       }

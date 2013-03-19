@@ -9,7 +9,7 @@ do ->
       content: ""
 
     validate: (attributes) ->
-      if(attributes.title is "" or attributes.content is "")
+      if(attributes.title is "" or attributes.content is "") # (1)
         return "title and content must be not empty."
 
   class MemoList extends Backbone.Collection
@@ -37,7 +37,7 @@ do ->
       ).done( => @collection.add(@model, {merge:true}))
       @hideView()
 
-    hideView: ->
+    hideView: =>
       @$el.hide()
       app.router.navigate("", {trigger:true})
 
