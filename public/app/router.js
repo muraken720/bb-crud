@@ -4,12 +4,12 @@
   var app = {};
 
   var Memo = Backbone.Model.extend({
-    idAttribute:"_id",
-    defaults:{
-      "title":"",
-      "content":""
+    idAttribute: "_id",
+    defaults: {
+      "title": "",
+      "content": ""
     },
-    validate:function (attributes) {
+    validate: function (attributes) {
       if (attributes.content === "" || attributes.title === "") {
         return "title and content must be not empty.";
       }
@@ -17,121 +17,121 @@
   });
 
   var MemoList = Backbone.Collection.extend({
-    model:Memo,
-    url:"/memo"
+    model: Memo,
+    url: "/memo"
   });
 
   var EditView = Backbone.View.extend({
-    events:{
-      "click #saveBtn":"onSave",
-      "click #cancelBtn":"hideView"
+    events: {
+      "click #saveBtn": "onSave",
+      "click #cancelBtn": "hideView"
     },
-    initialize:function () {
+    initialize: function () {
       _.bindAll(this);
 
       this.$title = $("#editForm [name='title']");
       this.$content = $("#editForm [name='content']");
     },
-    render:function () {
+    render: function () {
       this.$title.val(this.model.get("title"));
       this.$content.val(this.model.get("content"));
       this.$el.show();
     },
-    onSave:function () {
+    onSave: function () {
       var _this = this;
-      this.model.save({title:this.$title.val(), content:this.$content.val()}).done(function () {
-        _this.collection.add(_this.model, {merge:true});
+      this.model.save({title: this.$title.val(), content: this.$content.val()}).done(function () {
+        _this.collection.add(_this.model, {merge: true});
       });
       this.hideView();
     },
-    hideView:function () {
+    hideView: function () {
       this.$el.hide();
-      app.router.navigate("", {trigger:true});
+      app.router.navigate("", {trigger: true});
     }
   });
 
   var ItemView = Backbone.View.extend({
-    tmpl:_.template($("#tmpl-itemview").html()),
-    events:{
-      "click .edit":"onEdit",
-      "click .delete":"onDelete"
+    tmpl: _.template($("#tmpl-itemview").html()),
+    events: {
+      "click .edit": "onEdit",
+      "click .delete": "onDelete"
     },
-    initialize:function () {
+    initialize: function () {
       _.bindAll(this);
       this.listenTo(this.model, "change", this.render);
       this.listenTo(this.model, "destroy", this.onDestroy);
     },
-    onEdit:function () {
-      app.router.navigate(this.model.get("_id") + "/edit", {trigger:true});
+    onEdit: function () {
+      app.router.navigate(this.model.get("_id") + "/edit", {trigger: true});
     },
-    onDelete:function () {
+    onDelete: function () {
       this.model.destroy();
     },
-    onDestroy:function () {
+    onDestroy: function () {
       this.remove();
     },
-    render:function () {
+    render: function () {
       this.$el.html(this.tmpl(this.model.toJSON()));
       return this;
     }
   });
 
   var ListView = Backbone.View.extend({
-    initialize:function () {
+    initialize: function () {
       this.listenTo(this.collection, "add", this.addItemView);
       var _this = this;
       this.collection.fetch().done(function () {
         _this.render();
       });
     },
-    render:function () {
+    render: function () {
       this.collection.each(function (item) {
         this.addItemView(item);
       }, this);
       return this;
     },
-    addItemView:function (item) {
-      this.$el.append(new ItemView({model:item}).render().el);
+    addItemView: function (item) {
+      this.$el.append(new ItemView({model: item}).render().el);
     }
   });
 
   var HeaderView = Backbone.View.extend({
-    events:{
-      "click .create":"onCreate"
+    events: {
+      "click .create": "onCreate"
     },
-    initialize:function () {
+    initialize: function () {
       _.bindAll(this);
     },
-    onCreate:function () {
-      app.router.navigate("create", {trigger:true});
+    onCreate: function () {
+      app.router.navigate("create", {trigger: true});
     }
   });
 
   var AppRouter = Backbone.Router.extend({
-    routes:{
-      "":"home",
-      "create":"add",
-      ":id/edit":"edit"
+    routes: {
+      "": "home",
+      "create": "add",
+      ":id/edit": "edit"
     },
-    initialize:function () {
+    initialize: function () {
       _.bindAll(this);
 
       this.collection = new MemoList();
 
-      this.headerView = new HeaderView({el:$(".navbar")});
+      this.headerView = new HeaderView({el: $(".navbar")});
 
-      this.editView = new EditView({el:$("#editForm"), collection:this.collection});
+      this.editView = new EditView({el: $("#editForm"), collection: this.collection});
 
-      this.listView = new ListView({el:$("#memoList"), collection:this.collection});
+      this.listView = new ListView({el: $("#memoList"), collection: this.collection});
     },
-    home:function(){
+    home: function () {
       this.editView.hideView();
     },
-    add:function () {
-      this.editView.model = new Memo(null, {collection:this.collection});
+    add: function () {
+      this.editView.model = new Memo(null, {collection: this.collection});
       this.editView.render();
     },
-    edit:function (id) {
+    edit: function (id) {
       this.editView.model = this.collection.get(id);
       if (this.editView.model) {
         this.editView.render();

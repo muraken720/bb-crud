@@ -5,10 +5,11 @@
 
   // ---
   var Memo = Backbone.Model.extend({
-    idAttribute:"_id",
-    defaults:{
-      "content":""
-    }, validate:function (attributes) {
+    idAttribute: "_id",
+    defaults: {
+      "content": ""
+    },
+    validate: function (attributes) {
       if (attributes.content === "") {
         return "content must be not empty.";
       }
@@ -16,8 +17,8 @@
   });
 
   var MemoList = Backbone.Collection.extend({
-    model:Memo,
-    url:"/memo"
+    model: Memo,
+    url: "/memo"
   });
 
   var memoList = new MemoList();
@@ -33,16 +34,16 @@
   });
    */
 
-  var memo = new Memo({content:"Acro2"}, {collection:memoList});
+  var memo = new Memo({content: "Acro2"}, {collection: memoList});
 
   memo.save(null, {
-    success:function () {
+    success: function () {
       console.log("After save memoList: " + JSON.stringify(memoList));
       console.log("After save memoList.length: " + memoList.length);
     }
   }).pipe(function () {
       return memoList.fetch({
-        success:function () {
+        success: function () {
           console.log("After fetch memoList: " + JSON.stringify(memoList));
           console.log("After fetch memoList.length: " + memoList.length);
         }
@@ -52,8 +53,8 @@
         return item.get("content") === "Acro2";
       });
 
-      return tempMemo.save({content:"Acro3"}, {
-        success:function () {
+      return tempMemo.save({content: "Acro3"}, {
+        success: function () {
           console.log("After save memoList: " + JSON.stringify(memoList));
           console.log("After save memoList.length: " + memoList.length);
         }
@@ -64,7 +65,7 @@
       });
 
       return tempMemo.destroy({
-        success:function () {
+        success: function () {
           console.log("After destroy memoList: " + JSON.stringify(memoList));
           console.log("After destroy memoList.length: " + memoList.length);
         }
