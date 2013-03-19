@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <title>Memo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <link href="../lib/css/jquery.mobile-1.3.0.css" rel="stylesheet">
+</head>
+
+<body>
+<div data-role="page" id="index">
+  <div data-role="header">
+    <h1>Memo</h1>
+    <a href="#add" class="ui-btn-right" data-icon="plus">Add</a>
+  </div>
+
+  <div data-role="content">
+    <ul id="memolist" data-role="listview" data-inset="true">
+      <li>
+        <a href="#view"></a>
+
+        <h2>Title</h2>
+
+        <p>jQuery Mobile</p>
+      </li>
+
+      <li>
+        <a href="#view"></a>
+
+        <h2>Title2</h2>
+
+        <p>jQuery Mobile</p>
+      </li>
+    </ul>
+  </div>
+
+  <div data-role="footer" data-position="fixed" class="ui-bar">
+    <a href="#info-dialog" data-icon="info" data-rel="dialog">About</a>
+  </div>
+</div>
+
+<div data-role="page" id="add">
+  <div data-role="header">
+    <a data-derection="reverse" data-icon="back" data-rel="back">Back</a>
+    <h1>Memo Add</h1>
+    <a href="#add" data-icon="plus">Add</a>
+  </div>
+
+  <div data-role="content">
+    <div  data-role="filedcontain">
+      <fieldset data-role="controlgroup">
+        <legend>Memo</legend>
+        <input type="text" id="add-title" placeholder="Title"/>
+        <textarea id="add-content" placeholder="Content"></textarea>
+      </fieldset>
+    </div>
+  </div>
+
+  <div class="ui-bar" data-position="fixed" data-role="footer">
+    <a data-icon="check" href="#" id="save-addbtn">Save</a>
+  </div>
+</div>
+
+<div data-role="page" id="view">
+  <div data-role="header">
+    <a data-derection="reverse" data-icon="back" data-rel="back">Back</a>
+    <h1>Memo View</h1>
+    <a data-icon="plus" href="#add">Add</a>
+  </div>
+
+  <div data-role="content">
+    <div  data-role="filedcontain">
+      <h2 id="view-title"></h2>
+      <p id="view-content"></p>
+    </div>
+  </div>
+
+  <div class="ui-bar" data-position="fixed" data-role="footer" data-role=
+      "controlgroup" data-type="horizontal">
+    <a data-icon="gear" data-transition="flip" href="#edit">Edit</a>
+    <a data-icon="delete" data-rel="dialog" href="#confirm-dialog">Delete</a>
+  </div>
+</div>
+
+<div data-role="page" id="edit">
+  <div data-role="header">
+    <a data-derection="reverse" data-icon="back" data-rel="back">Back</a>
+    <h1>Memo Edit</h1>
+    <a data-icon="plus" href="#add">Add</a>
+  </div>
+
+  <div data-role="content">
+    <div  data-role="filedcontain">
+      <fieldset data-role="controlgroup">
+        <legend>Memo</legend>
+        <input type="text" id="edit-title" placeholder="Title"/>
+        <textarea id="edit-content" placeholder="Content"></textarea>
+      </fieldset>
+    </div>
+  </div>
+
+  <div class="ui-bar" data-position="fixed" data-role="footer">
+    <a data-icon="check" href="#" id="save-editbtn">Save</a>
+  </div>
+</div>
+
+<div data-role="page" id="msg-dialog">
+  <div data-role="header">
+    <h1>Message</h1>
+  </div>
+
+  <div data-role="content">
+    <p id="message"></p><a data-role="button" href="#index">OK</a>
+  </div>
+</div>
+
+<div data-role="page" id="info-dialog">
+  <div data-role="header">
+    <h1>About</h1>
+  </div>
+
+  <div data-role="content">
+    This is a RESTful Memo Application using Node.js, jQuery Mobile, MongoDB,
+    mongoose, express and jade.
+  </div>
+</div>
+
+<div data-role="page" id="confirm-dialog">
+  <div data-role="header">
+    <h1>Confirm</h1>
+  </div>
+
+  <div data-role="content">
+    <p>Are you sure you want to delete the item?</p>
+    <a data-role="button" href="#" id="del-btn">Delete</a>
+  </div>
+</div>
+<script src="../lib/js/jquery-1.9.1.js"></script>
+<script src="../lib/js/jquery.mobile-1.3.0.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
