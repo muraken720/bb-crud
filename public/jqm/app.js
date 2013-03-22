@@ -1,7 +1,7 @@
 $(function () {
   "use strict";
 
-  var app = {};
+  var app = app || {};
 
   $("#memolist").on('tap', 'a', function () {
     app.selectedid = this.id;

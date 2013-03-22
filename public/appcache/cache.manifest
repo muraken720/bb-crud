@@ -1,0 +1,17 @@
+CACHE MANIFEST
+#ver 0.3
+
+CACHE:
+index.html
+../lib/css/bootstrap.css
+../lib/css/bootstrap-responsive.css
+../lib/js/jquery-1.9.1.js
+../lib/js/json2.js
+../lib/js/underscore.js
+../lib/js/backbone.js
+app.js
+
+FALLBACK:
+
+NETWORK:
+*
