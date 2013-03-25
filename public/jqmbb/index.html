@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html>
+<html manifest="cache.manifest">
 <head>
   <title>Memo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -17,26 +17,10 @@
   </div>
 
   <div data-role="content">
-    <ul id="memolist" data-role="listview" data-inset="true">
-      <li>
-        <a href="#view"></a>
-
-        <h2>Title</h2>
-
-        <p>jQuery Mobile</p>
-      </li>
-
-      <li>
-        <a href="#view"></a>
-
-        <h2>Title2</h2>
-
-        <p>jQuery Mobile</p>
-      </li>
-    </ul>
+    <ul id="memolist" data-role="listview" data-inset="true"></ul>
   </div>
 
-  <div data-role="footer" data-position="fixed" class="ui-bar">
+  <div data-role="footer" class="ui-bar" data-position="fixed">
     <a href="#info-dialog" data-icon="info" data-rel="dialog">About</a>
   </div>
 </div>
@@ -49,7 +33,7 @@
   </div>
 
   <div data-role="content">
-    <div  data-role="filedcontain">
+    <div data-role="filedcontain">
       <fieldset data-role="controlgroup">
         <legend>Memo</legend>
         <input type="text" id="add-title" placeholder="Title"/>
@@ -58,8 +42,8 @@
     </div>
   </div>
 
-  <div class="ui-bar" data-position="fixed" data-role="footer">
-    <a data-icon="check" href="#" id="save-addbtn">Save</a>
+  <div data-role="footer" class="ui-bar" data-position="fixed">
+    <a id="save-addbtn" data-icon="check">Save</a>
   </div>
 </div>
 
@@ -67,20 +51,21 @@
   <div data-role="header">
     <a data-derection="reverse" data-icon="back" data-rel="back">Back</a>
     <h1>Memo View</h1>
-    <a data-icon="plus" href="#add">Add</a>
+    <a href="#add" data-icon="plus">Add</a>
   </div>
 
   <div data-role="content">
-    <div  data-role="filedcontain">
+    <div data-role="filedcontain">
       <h2 id="view-title"></h2>
+
       <p id="view-content"></p>
     </div>
   </div>
 
   <div class="ui-bar" data-position="fixed" data-role="footer" data-role=
       "controlgroup" data-type="horizontal">
-    <a data-icon="gear" data-transition="flip" href="#edit">Edit</a>
-    <a data-icon="delete" data-rel="dialog" href="#confirm-dialog">Delete</a>
+    <a id="view-editbtn" data-icon="gear">Edit</a>
+    <a id="view-delbtn" data-icon="delete">Delete</a>
   </div>
 </div>
 
@@ -88,11 +73,11 @@
   <div data-role="header">
     <a data-derection="reverse" data-icon="back" data-rel="back">Back</a>
     <h1>Memo Edit</h1>
-    <a data-icon="plus" href="#add">Add</a>
+    <a href="#add" data-icon="plus">Add</a>
   </div>
 
   <div data-role="content">
-    <div  data-role="filedcontain">
+    <div data-role="filedcontain">
       <fieldset data-role="controlgroup">
         <legend>Memo</legend>
         <input type="text" id="edit-title" placeholder="Title"/>
@@ -101,18 +86,8 @@
     </div>
   </div>
 
-  <div class="ui-bar" data-position="fixed" data-role="footer">
-    <a data-icon="check" href="#" id="save-editbtn">Save</a>
-  </div>
-</div>
-
-<div data-role="page" id="msg-dialog">
-  <div data-role="header">
-    <h1>Message</h1>
-  </div>
-
-  <div data-role="content">
-    <p id="message"></p><a data-role="button" href="#index">OK</a>
+  <div data-role="footer" class="ui-bar" data-position="fixed">
+    <a data-icon="check" id="save-editbtn">Save</a>
   </div>
 </div>
 
@@ -122,8 +97,19 @@
   </div>
 
   <div data-role="content">
-    This is a RESTful Memo Application using Node.js, jQuery Mobile, MongoDB,
-    mongoose, express and jade.
+    This is a RESTful Memo Application using jQuery Mobile, Backbone.js, Node.js, MongoDB,
+    mongoose and express.
+  </div>
+</div>
+
+<div data-role="page" id="msg-dialog">
+  <div data-role="header">
+    <h1>Message</h1>
+  </div>
+
+  <div data-role="content">
+    <p id="message"></p>
+    <a data-role="button" href="#index">OK</a>
   </div>
 </div>
 
@@ -134,11 +120,23 @@
 
   <div data-role="content">
     <p>Are you sure you want to delete the item?</p>
-    <a data-role="button" href="#" id="del-btn">Delete</a>
+    <a href="#" id="del-btn" data-role="button">Delete</a>
   </div>
 </div>
+
+<script type="text/template" id="tmpl-itemview">
+  <a class="view">
+    <h2><%= title %></h2>
+
+    <p><%= content %></p>
+  </a>
+</script>
+
 <script src="../lib/js/jquery-1.9.1.js"></script>
+<script src="jqm-setting.js"></script>
 <script src="../lib/js/jquery.mobile-1.3.0.js"></script>
+<script src="../lib/js/underscore.js"></script>
+<script src="../lib/js/backbone.js"></script>
 <script src="app.js"></script>
 </body>
 </html>

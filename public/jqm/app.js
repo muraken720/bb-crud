@@ -5,7 +5,6 @@ $(function () {
 
   $("#memolist").on('tap', 'a', function () {
     app.selectedid = this.id;
-    console.log("tap: " + app.selectedid);
   });
 
   $("#index").on('pagebeforeshow', function () {
