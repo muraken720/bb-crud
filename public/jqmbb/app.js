@@ -29,7 +29,7 @@ $(function () {
       this.listenTo(this.collection, "change", this.onChange);
       this.listenTo(this.collection, "remove", this.refresh);
       var _this = this;
-      this.collection.fetch().done(function () {
+      this.collection.fetch({reset: true}).done(function () {
         _this.render();
       });
     },

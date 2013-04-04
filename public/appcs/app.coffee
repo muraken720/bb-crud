@@ -18,8 +18,8 @@ do ->
 
   class EditView extends Backbone.View
     events:
-       "click #saveBtn":"onSave"
-       "click #cancelBtn":"hideView"
+      "click #saveBtn": "onSave"
+      "click #cancelBtn": "hideView"
 
     initialize: ->
       @$title = $("#editForm [name='title']")
@@ -32,21 +32,22 @@ do ->
 
     onSave: =>
       @model.save(
-        title:@$title.val()
-        content:@$content.val()
-      ).done( => @collection.add(@model, {merge:true}))
+        title: @$title.val()
+        content: @$content.val()
+      ).done(=>
+        @collection.add(@model, {merge: true}))
       @hideView()
 
     hideView: =>
       @$el.hide()
-      app.router.navigate("", {trigger:true})
+      app.router.navigate("", {trigger: true})
 
   class ItemView extends Backbone.View
-    tmpl:_.template($("#tmpl-itemview").html())
+    tmpl: _.template($("#tmpl-itemview").html())
 
     events:
-      "click .edit":"onEdit"
-      "click .delete":"onDelete"
+      "click .edit": "onEdit"
+      "click .delete": "onDelete"
 
     initialize: ->
       @listenTo(@model, "change", @render)
@@ -57,7 +58,7 @@ do ->
       @
 
     onEdit: =>
-      app.router.navigate(@model.get("_id") + "/edit", {trigger:true})
+      app.router.navigate(@model.get("_id") + "/edit", {trigger: true})
 
     onDelete: =>
       @model.destroy()
@@ -69,21 +70,23 @@ do ->
   class ListView extends Backbone.View
     initialize: ->
       @listenTo(@collection, "add", @addItemView)
-      @collection.fetch().done( => @render() )
+      @collection.fetch({reset: true}).done(=>
+        @render())
 
     render: ->
-      @collection.each( (item) => @addItemView(item) )
+      @collection.each((item) =>
+        @addItemView(item))
 
     addItemView: (item) ->
-      @$el.append(new ItemView({model:item}).render().el)
+      @$el.append(new ItemView({model: item}).render().el)
 
 
   class HeaderView extends Backbone.View
     events:
-      "click .create":"onCreate"
+      "click .create": "onCreate"
 
     onCreate: =>
-      app.router.navigate("create", {trigger:true})
+      app.router.navigate("create", {trigger: true})
 
   class AppRouter extends Backbone.Router
     routes:
@@ -95,21 +98,21 @@ do ->
       @collection = new MemoList
 
       @headerView = new HeaderView
-        el:$(".navbar")
+        el: $(".navbar")
 
       @editView = new EditView
-        el:$("#editForm")
-        collection:@collection
+        el: $("#editForm")
+        collection: @collection
 
       @listView = new ListView
-        el:$("#memoList")
-        collection:@collection
+        el: $("#memoList")
+        collection: @collection
 
     home: =>
       @editView.hideView()
 
     add: =>
-      @editView.model = new Memo(null, {collection:@collection})
+      @editView.model = new Memo(null, {collection: @collection})
       @editView.render()
 
     edit: (id) =>

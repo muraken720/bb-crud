@@ -152,7 +152,9 @@
         var _this = this;
 
         this.listenTo(this.collection, "add", this.addItemView);
-        return this.collection.fetch().done(function() {
+        return this.collection.fetch({
+          reset: true
+        }).done(function() {
           return _this.render();
         });
       };

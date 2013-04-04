@@ -93,7 +93,8 @@
         success: function () {
           console.log("After fetch memoList: " + JSON.stringify(memoList));
           console.log("After fetch memoList.length: " + memoList.length);
-        }
+        },
+        reset: true
       });
     }).pipe(function () {
       var tempMemo = memoList.find(function (item) {

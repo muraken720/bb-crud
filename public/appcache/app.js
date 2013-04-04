@@ -80,7 +80,7 @@
     initialize: function () {
       this.listenTo(this.collection, "add", this.addItemView);
       var _this = this;
-      this.collection.fetch().done(function () {
+      this.collection.fetch({reset: true}).done(function () {
         _this.render();
       });
     },
